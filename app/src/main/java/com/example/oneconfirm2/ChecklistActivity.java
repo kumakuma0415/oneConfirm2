@@ -19,6 +19,7 @@ public class ChecklistActivity extends AppCompatActivity {
 
     private ForgetDatabaseHelper helper = null;
     MainListAdapter sc_adapter;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class ChecklistActivity extends AppCompatActivity {
         Log.v("DB_TEST", "Count: " + cursor.getCount());
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(DBEntry._ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(DBEntry.COLUMN_NAME_TITLE));
+            name = cursor.getString(cursor.getColumnIndexOrThrow(DBEntry.COLUMN_NAME_TITLE));
             String content = cursor.getString(cursor.getColumnIndexOrThrow(DBEntry.COLUMN_NAME_CONTENTS));
             Log.v("DB_TEST", "id: " + id + " name: " + name + " content: " + content);
         }

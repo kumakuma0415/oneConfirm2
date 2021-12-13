@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import java.text.BreakIterator;
+
 public class ConfigActivity extends AppCompatActivity {
 
     Switch c_switch;
@@ -58,6 +60,7 @@ public class ConfigActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, intent, 0);
 
+
         /**
          * Configure Notification contents how it show at notification bar.
          */
@@ -65,8 +68,8 @@ public class ConfigActivity extends AppCompatActivity {
         NotificationCompat.Builder nfBuilder = new NotificationCompat.Builder(
                 this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_checklist_24)
-                .setContentTitle("Tapped ListView")
-                .setContentText("You tapped App to check the list!!")
+                .setContentTitle("鍵を締めましたか？ 部屋の電気を消しましたか？…")
+                .setContentText("こちらをタップして確認")
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
