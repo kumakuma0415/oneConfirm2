@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
         Button m_btn_config = findViewById(R.id.m_btn_config);
 
         m_btn_check.setOnClickListener((View v) -> {
-            startActivity(new Intent(this, MainChecklist.class));
+            startActivity(new Intent(this, ChecklistActivity.class));
         });
 
         m_btn_config.setOnClickListener((View v) -> {
-            startActivity(new Intent(this, MainConfig.class));
+            startActivity(new Intent(this, ConfigActivity.class));
         });
     }
 }

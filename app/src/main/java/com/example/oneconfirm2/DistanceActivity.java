@@ -5,11 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,15 +26,17 @@ public class DistanceActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     TextView home_latitude;
-    EditText write_latitude;
     TextView home_longitude;
-    EditText write_longitude;
     TextView set_distance;
     EditText assumed_distance;
 
-    TextView now_latitude;
-    TextView now_longitude;
+    Double now_latitude3;
+    Double now_longitude3;
+    Double home_latitude3;
+    Double home_longitude3;
     TextView distance_to_home;
+
+    static LocationResult locationResult;
 
 
     @Override
@@ -51,26 +50,31 @@ public class DistanceActivity extends AppCompatActivity {
         // 位置情報取得開始
         startUpdateLocation();
 
+        //エラーの原因
+        //Location location = locationResult.getLastLocation();
 
-        Button register_myHome1 = findViewById(R.id.register_my_home1);
+        Button register_myHome1 = findViewById(R.id.register_my_home);
         register_myHome1.setOnClickListener(v -> {
             home_latitude = findViewById(R.id.home_latitude);
-            write_latitude = findViewById(R.id.write_latitude);
+            TextView write_latitude = findViewById(R.id.now_latitude);
             String text1 = write_latitude.getText().toString();
-
-            Log.v("LogSuccess", text1);
             home_latitude.setText(text1);
-        });
-        home_latitude = findViewById(R.id.home_latitude);
+            //追加部分
+            home_latitude3 = locationResult.getLastLocation().getLatitude();
 
-        Button register_myHome2 = findViewById(R.id.register_my_home2);
-        register_myHome2.setOnClickListener(v -> {
             home_longitude = findViewById(R.id.home_longitude);
-            write_longitude = findViewById(R.id.write_longitude);
+            TextView write_longitude = findViewById(R.id.now_longitude);
             String text2 = write_longitude.getText().toString();
             home_longitude.setText(text2);
+            //追加部分
+            home_longitude3 = locationResult.getLastLocation().getLongitude();
         });
+        home_latitude = findViewById(R.id.home_latitude);
         home_longitude = findViewById(R.id.home_longitude);
+        //追加部分　エラーの原因
+        //home_latitude3 = locationResult.getLastLocation().getLatitude();
+        //home_longitude3 = locationResult.getLastLocation().getLongitude();
+
 
         Button register_distance = findViewById(R.id.register_distance);
         register_distance.setOnClickListener(v -> {
@@ -81,33 +85,15 @@ public class DistanceActivity extends AppCompatActivity {
         });
         set_distance = findViewById(R.id.set_distance);
 
+
         Button d_btn_return = findViewById(R.id.d_btn_return);
-        d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, MainConfig.class)));
+        d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
 
+        //エラーの原因
+        //now_latitude3 = locationResult.getLastLocation().getLatitude();
+        //now_latitude3 = locationResult.getLastLocation().getLongitude();
 
-        //*　エラー発生の原因とされる部分スタート
-
-        //地点１の緯度
-        now_latitude = findViewById(R.id.now_latitude);
-        //String now_latitude2 = now_latitude.getText().toString();
-        double now_latitude3 = Double.parseDouble(String.valueOf(now_latitude));
-
-        //地点1の経度
-        now_longitude = findViewById(R.id.now_longitude);
-        //String now_longitude2 = now_longitude.getText().toString();
-        double now_longitude3 = Double.parseDouble(String.valueOf(now_longitude));
-
-
-        //地点2の緯度
-        home_latitude = findViewById(R.id.home_latitude);
-        //String home_latitude2 = home_latitude.getText().toString();
-        double home_latitude3 = Double.parseDouble(String.valueOf(home_latitude));
-
-        //地点2の経度
-        home_longitude = findViewById(R.id.home_longitude);
-        //String home_longitude2 = home_longitude.getText().toString();
-        double home_longitude3 = Double.parseDouble(String.valueOf(home_longitude));
-
+        /*
         float[] distance =
                getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
 
@@ -123,9 +109,7 @@ public class DistanceActivity extends AppCompatActivity {
           }
         });
         distance_to_home = findViewById(R.id.distance_toHome);
-
-        //エラー発生部分　終了
-        // */
+         */
     }
 
     /*
@@ -215,7 +199,6 @@ public class DistanceActivity extends AppCompatActivity {
      * 位置情報受取コールバッククラス
      */
     public class MyLocationCallback extends LocationCallback {
-        public Location location;
 
         @Override
         public void onLocationResult(LocationResult locationResult) {
@@ -235,4 +218,7 @@ public class DistanceActivity extends AppCompatActivity {
             Double num_now_longitude = location.getLongitude();
         }
     }
+
+
 }
+

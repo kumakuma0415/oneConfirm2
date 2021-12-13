@@ -15,7 +15,7 @@ import android.widget.ListView;
 import com.example.oneconfirm2.DBContract.DBEntry;
 
 
-public class MainChecklist extends AppCompatActivity {
+public class ChecklistActivity extends AppCompatActivity {
 
     private ForgetDatabaseHelper helper = null;
     MainListAdapter sc_adapter;
@@ -23,7 +23,7 @@ public class MainChecklist extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_checklist);
+        setContentView(R.layout.activity_checklist);
 
         Button m_btn_return = findViewById(R.id.m_btn_return);
         Button m_btn_new = findViewById(R.id.m_btn_new);
@@ -65,7 +65,7 @@ public class MainChecklist extends AppCompatActivity {
 
         // ListViewの1行分のレイアウト(row_main.xml)と検索結果を関連付け
         sc_adapter = new MainListAdapter(
-                this, R.layout.row__checklist, cursor, from, to,0);
+                this, R.layout.row_checklist, cursor, from, to,0);
 
         // activity_main.xmlに定義したListViewオブジェクトを取得
         ListView list = findViewById(R.id.c_listview);
@@ -80,7 +80,7 @@ public class MainChecklist extends AppCompatActivity {
             Cursor cursor1 = (Cursor)av.getItemAtPosition(position);
 
             // テキスト登録画面 Activity へのインテントを作成
-            Intent intent  = new Intent(MainChecklist.this, TextActivity.class);
+            Intent intent  = new Intent(ChecklistActivity.this, TextActivity.class);
 
             intent.putExtra(DBEntry._ID, cursor1.getInt(0));
             intent.putExtra(DBEntry.COLUMN_NAME_TITLE, cursor1.getString(1));
@@ -125,7 +125,7 @@ public class MainChecklist extends AppCompatActivity {
 
         // ListViewの1行分のレイアウト(row_main.xml)と検索結果を関連付け
         sc_adapter = new MainListAdapter(
-                this, R.layout.row__checklist, cursor, from, to,0);
+                this, R.layout.row_checklist, cursor, from, to,0);
 
         // activity_main.xmlに定義したListViewオブジェクトを取得
         ListView list = findViewById(R.id.c_listview);
@@ -140,7 +140,7 @@ public class MainChecklist extends AppCompatActivity {
             Cursor cursor1 = (Cursor)av.getItemAtPosition(position);
 
             // テキスト登録画面 Activity へのインテントを作成
-            Intent intent  = new Intent(MainChecklist.this, TextActivity.class);
+            Intent intent  = new Intent(ChecklistActivity.this, TextActivity.class);
 
             intent.putExtra(DBEntry._ID, cursor1.getInt(0));
             intent.putExtra(DBEntry.COLUMN_NAME_TITLE, cursor1.getString(1));
