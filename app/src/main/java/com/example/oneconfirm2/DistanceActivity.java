@@ -43,12 +43,8 @@ public class DistanceActivity extends AppCompatActivity {
 
         // LocationClientクラスのインスタンスを生成
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         // 位置情報取得開始
         startUpdateLocation();
-
-        //エラーの原因
-        //Location location = locationResult.getLastLocation();
 
         Button register_my_home = findViewById(R.id.register_my_home);
         register_my_home.setOnClickListener(v -> {
@@ -85,6 +81,9 @@ public class DistanceActivity extends AppCompatActivity {
 
         Button d_btn_return = findViewById(R.id.d_btn_return);
         d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
+
+
+
 
         //エラーの原因
         //now_latitude3 = locationResult.getLastLocation().getLatitude();
@@ -192,29 +191,7 @@ public class DistanceActivity extends AppCompatActivity {
     public FusedLocationProviderClient fusedLocationClient;
 
 
-    /**
-     * 位置情報受取コールバッククラス
-     */
-    public class MyLocationCallback extends LocationCallback {
 
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            if (locationResult == null) {
-                return;
-            }
-            // 現在値を取得
-            Location location = locationResult.getLastLocation();
-
-            // 画面に表示
-            TextView view1 = findViewById(R.id.now_latitude);
-            TextView view2 = findViewById(R.id.now_longitude);
-            view1.setText(String.valueOf(location.getLatitude()));
-            view2.setText(String.valueOf(location.getLongitude()));
-
-            Double num_now_latitude = location.getLatitude();
-            Double num_now_longitude = location.getLongitude();
-        }
-    }
 
 
 }
