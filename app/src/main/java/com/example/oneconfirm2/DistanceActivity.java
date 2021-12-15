@@ -46,6 +46,18 @@ public class DistanceActivity extends AppCompatActivity {
         // 位置情報取得開始
         startUpdateLocation();
 
+
+        /*
+        // 画面に表示
+        TextView now_latitude = findViewById(R.id.now_latitude);
+        TextView now_longitude = findViewById(R.id.now_longitude);
+        now_latitude.setText(String.valueOf(location.getLatitude()));
+        now_longitude.setText(String.valueOf(location.getLongitude()));
+
+        Double num_now_latitude = location.getLatitude();
+        Double num_now_longitude = location.getLongitude();
+         */
+
         Button register_my_home = findViewById(R.id.register_my_home);
         register_my_home.setOnClickListener(v -> {
             home_latitude = findViewById(R.id.home_latitude);
