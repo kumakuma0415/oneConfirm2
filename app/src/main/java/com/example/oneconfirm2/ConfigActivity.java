@@ -36,14 +36,11 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.activity_config);
 
         Button co_btn_dis = findViewById(R.id.co_dis);
-
-        Button co_btn_return = findViewById(R.id.co_return);
-
         co_btn_dis.setOnClickListener((View v) -> {
             startActivity(new Intent(this, DistanceActivity.class));
         });
 
-
+        Button co_btn_return = findViewById(R.id.co_return);
         co_btn_return.setOnClickListener((View v) -> {
             startActivity(new Intent(this, MainActivity.class));
         });

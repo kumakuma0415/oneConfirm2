@@ -24,17 +24,14 @@ import com.google.android.gms.location.LocationServices;
 
 public class DistanceActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient fusedLocationProviderClient;
     TextView home_latitude;
     TextView home_longitude;
     TextView set_distance;
+
     EditText assumed_distance;
 
-    Double now_latitude3;
-    Double now_longitude3;
     Double home_latitude3;
     Double home_longitude3;
-    TextView distance_to_home;
 
     static LocationResult locationResult;
 
@@ -53,8 +50,8 @@ public class DistanceActivity extends AppCompatActivity {
         //エラーの原因
         //Location location = locationResult.getLastLocation();
 
-        Button register_myHome1 = findViewById(R.id.register_my_home);
-        register_myHome1.setOnClickListener(v -> {
+        Button register_my_home = findViewById(R.id.register_my_home);
+        register_my_home.setOnClickListener(v -> {
             home_latitude = findViewById(R.id.home_latitude);
             TextView write_latitude = findViewById(R.id.now_latitude);
             String text1 = write_latitude.getText().toString();

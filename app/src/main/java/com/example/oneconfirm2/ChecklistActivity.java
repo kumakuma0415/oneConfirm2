@@ -27,10 +27,9 @@ public class ChecklistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checklist);
 
         Button m_btn_return = findViewById(R.id.m_btn_return);
-        Button m_btn_new = findViewById(R.id.m_btn_new);
-
         m_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, MainActivity.class)));
 
+        Button m_btn_new = findViewById(R.id.m_btn_new);
         m_btn_new.setOnClickListener((View v) -> startActivity(new Intent(this, TextActivity.class)));
 
 

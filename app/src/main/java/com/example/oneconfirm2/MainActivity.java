@@ -15,12 +15,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button m_btn_check = findViewById(R.id.m_btn_check);
-        Button m_btn_config = findViewById(R.id.m_btn_config);
-
         m_btn_check.setOnClickListener((View v) -> {
             startActivity(new Intent(this, ChecklistActivity.class));
         });
 
+        Button m_btn_config = findViewById(R.id.m_btn_config);
         m_btn_config.setOnClickListener((View v) -> {
             startActivity(new Intent(this, ConfigActivity.class));
         });
