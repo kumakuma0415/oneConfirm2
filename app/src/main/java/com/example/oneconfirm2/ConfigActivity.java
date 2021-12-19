@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.text.BreakIterator;
 
@@ -85,14 +86,53 @@ public class ConfigActivity extends AppCompatActivity {
 
         c_switch = findViewById(R.id.c_switch);
 
-
+        /*
         c_switch.setOnClickListener((View v) -> {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
             notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
         });
+         */
 
+        //DistanceActivity distanceActivity = new DistanceActivity();
 
+        Button btn_pra_alert = findViewById(R.id.btn_pra_alert);
+        btn_pra_alert.setOnClickListener((View v) -> {
 
+            //DistanceActivity distanceActivity = new DistanceActivity();
+
+            /*
+            //TextView num_distance_to_home2 = distanceActivity.num_distance_to_home;
+            TextView num_distance_to_home2 = findViewById(R.id.num_distance_to_home);
+            String num_distance_to_home3 = num_distance_to_home2.getText().toString();
+            //Log.v("distanceActivity", String.valueOf(distanceActivity.num_distance_to_home));
+            double num_distance_to_home4 = Double.parseDouble(num_distance_to_home3);
+
+            //TextView set_distance2 = distanceActivity.set_distance;
+            TextView set_distance2 = findViewById(R.id.set_distance);
+            String set_distance3 = set_distance2.getText().toString();
+            double set_distance4 = Double.parseDouble(set_distance3);
+            */
+
+            //if(num_distance_to_home4 >= set_distance4) {
+            if(7 >= 5) {
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+                notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
+              //  }
+            }
+        });
+
+        /*
+        DistanceActivity distanceActivity = new DistanceActivity();
+        String num_distance_to_home2 = distanceActivity.num_distance_to_home.getText().toString();
+        double num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
+        String set_distance2 = distanceActivity.set_distance.getText().toString();
+        double set_distance3 = Double.parseDouble(set_distance2);
+
+        if(num_distance_to_home3 >= set_distance3) {
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+            notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
+        }
+        */
 
         c_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

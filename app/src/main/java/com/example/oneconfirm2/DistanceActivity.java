@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -36,7 +35,8 @@ public class DistanceActivity extends AppCompatActivity {
 
     TextView now_latitude;
     TextView now_longitude;
-    TextView distance_to_home;
+    TextView num_distance_to_home;
+
 
 
     @Override
@@ -50,8 +50,10 @@ public class DistanceActivity extends AppCompatActivity {
         // 位置情報取得開始
         startUpdateLocation();
 
+
         Button register_myHome = findViewById(R.id.register_my_home);
         register_myHome.setOnClickListener(v -> {
+
             home_latitude = findViewById(R.id.home_latitude);
             write_latitude = findViewById(R.id.now_latitude);
             String text1 = write_latitude.getText().toString();
@@ -65,7 +67,33 @@ public class DistanceActivity extends AppCompatActivity {
         home_latitude = findViewById(R.id.home_latitude);
         home_longitude = findViewById(R.id.home_longitude);
 
-        Button register_distance = findViewById(R.id.register_distance);
+
+        //ボタンを押すと、距離を算出してくれる仕組み
+        //distance[0]は2地点間の距離
+        Button btn_distance_to_home = findViewById(R.id.btn_distance_to_home);
+        btn_distance_to_home.setOnClickListener(v -> {
+
+            String now_latitude2 = now_latitude.getText().toString();
+            String now_longitude2 = now_longitude.getText().toString();
+            double now_latitude3 = Double.parseDouble(now_latitude2);
+            double now_longitude3 = Double.parseDouble(now_longitude2);
+
+            String home_latitude2 = home_latitude.getText().toString();
+            String home_longitude2 = home_longitude.getText().toString();
+            double home_latitude3 = Double.parseDouble(home_latitude2);
+            double home_longitude3 = Double.parseDouble(home_longitude2);
+
+            float[] distance =
+                    getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
+
+            String dis = String.valueOf(distance[0]);
+            num_distance_to_home = findViewById(R.id.num_distance_to_home);
+            num_distance_to_home.setText(dis);
+        });
+        num_distance_to_home = findViewById(R.id.num_distance_to_home);
+
+
+        Button register_distance = findViewById(R.id.distance_to_home);
         register_distance.setOnClickListener(v -> {
             set_distance = findViewById(R.id.set_distance);
             assumed_distance = findViewById(R.id.assumed_distance);
@@ -74,29 +102,41 @@ public class DistanceActivity extends AppCompatActivity {
         });
         set_distance = findViewById(R.id.set_distance);
 
+        //compare_distance();
+
+        /*
+        Button practice_btn = findViewById(R.id.practice_btn);
+        practice_btn.setOnClickListener(v -> {
+            num_distance_to_home2 = num_distance_to_home.getText().toString();
+            num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
+            String set_distance2 = set_distance.getText().toString();
+            double set_distance3 = Double.parseDouble(set_distance2);
+
+            if (num_distance_to_home3 >= set_distance3) {
+                TextView distance_practice = findViewById(R.id.distance_practice);
+                distance_practice.setText("できました！");
+            }
+        });
+        */
+
         Button d_btn_return = findViewById(R.id.d_btn_return);
         d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
 
-        /*
-        float[] distance =
-                getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
-
-
-        //ボタンを押すと、距離を算出してくれる仕組み
-        //distance[0]は2地点間の距離
-        Button register_distance2 = findViewById(R.id.register_distance2);
-        register_distance2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dis = String.valueOf(distance[0]);
-                distance_to_home = findViewById(R.id.distance_toHome);
-                distance_to_home.setText(dis);
-            }
-        });
-        distance_to_home = findViewById(R.id.distance_toHome);
-         */
     }
 
+    /*
+    private void compare_distance() {
+        String num_distance_to_home2 = num_distance_to_home.getText().toString();
+        double num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
+        String set_distance2 = set_distance.getText().toString();
+        double set_distance3 = Double.parseDouble(set_distance2);
+
+        if (num_distance_to_home3 >= set_distance3) {
+            TextView distance_practice = findViewById(R.id.distance_practice);
+            distance_practice.setText("できました！");
+        }
+    }
+    */
 
     /*
      * 2点間の距離（メートル）、方位角（始点、終点）を取得
@@ -124,6 +164,9 @@ public class DistanceActivity extends AppCompatActivity {
         if(home_longitude != null) {
             editor.putString("home_longitude", home_longitude.getText().toString());
         }
+        if(num_distance_to_home != null) {
+            editor.putString("num_distance_to_home", num_distance_to_home.getText().toString());
+        }
         if(set_distance != null) {
             editor.putString("set_distance", set_distance.getText().toString());
         }
@@ -140,12 +183,14 @@ public class DistanceActivity extends AppCompatActivity {
         home_latitude.setText(pref.getString("home_latitude","未設定"));
         home_longitude.setText(pref.getString("home_longitude","未設定"));
         set_distance.setText(pref.getString("set_distance","未設定"));
+        num_distance_to_home.setText(pref.getString("num_distance_to_home","未設定"));
     }
 
 
     /**
      * 位置情報取得開始メソッド
      */
+
     private void startUpdateLocation() {
         // 位置情報取得権限の確認
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -197,9 +242,15 @@ public class DistanceActivity extends AppCompatActivity {
             // 画面に表示
             now_latitude = findViewById(R.id.now_latitude);
             now_longitude = findViewById(R.id.now_longitude);
-            now_latitude.setText("" + location.getLatitude());
-            now_longitude.setText("" + location.getLongitude());
+            String str_now_latitude = String.valueOf(location.getLatitude());
+            String str_now_longitude = String.valueOf(location.getLongitude());
 
+            now_latitude.setText(str_now_latitude);
+            now_longitude.setText(str_now_longitude);
+
+            //String str_now_latitude = now_latitude.setText().toString;
+            //Double num_now_latitude = Double.parseDouble(str_now_latitude);
         }
+
     }
 }
