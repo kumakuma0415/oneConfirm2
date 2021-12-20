@@ -33,6 +33,8 @@ public class ChecklistActivity extends AppCompatActivity {
         m_btn_new.setOnClickListener((View v) -> startActivity(new Intent(this, TextActivity.class)));
 
 
+        //以下すべてデータベースに関する内容
+
         // データベースヘルパーを準備
         helper = new ForgetDatabaseHelper(this);
 

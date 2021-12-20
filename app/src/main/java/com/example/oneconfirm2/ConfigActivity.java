@@ -27,7 +27,6 @@ import java.text.BreakIterator;
 public class ConfigActivity extends AppCompatActivity {
 
     Switch c_switch;
-    boolean isChecked2;
     private static final String SWITCH1_PREFKEY = "switch1";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -36,11 +35,13 @@ public class ConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
+        //DistanceActivityに画面遷移するボタン
         Button co_btn_dis = findViewById(R.id.co_dis);
         co_btn_dis.setOnClickListener((View v) -> {
             startActivity(new Intent(this, DistanceActivity.class));
         });
 
+        //MainActivityに画面遷移（戻る）ボタン
         Button co_btn_return = findViewById(R.id.co_return);
         co_btn_return.setOnClickListener((View v) -> {
             startActivity(new Intent(this, MainActivity.class));

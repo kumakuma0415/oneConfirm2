@@ -38,6 +38,33 @@ public class DistanceActivity extends AppCompatActivity {
     TextView num_distance_to_home;
 
 
+    /**
+     * 位置情報受取コールバッククラス
+     */
+    public class MyLocationCallback extends LocationCallback {
+
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            if (locationResult == null) {
+                return;
+            }
+            // 現在値を取得
+            Location location = locationResult.getLastLocation();
+
+            // 画面に表示
+            now_latitude = findViewById(R.id.now_latitude);
+            now_longitude = findViewById(R.id.now_longitude);
+            String str_now_latitude = String.valueOf(location.getLatitude());
+            String str_now_longitude = String.valueOf(location.getLongitude());
+
+            now_latitude.setText(str_now_latitude);
+            now_longitude.setText(str_now_longitude);
+
+            //String str_now_latitude = now_latitude.setText().toString;
+            //Double num_now_latitude = Double.parseDouble(str_now_latitude);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +78,12 @@ public class DistanceActivity extends AppCompatActivity {
         startUpdateLocation();
 
 
+        //自宅の緯度経度を取得するボタン(ボタン１)
         Button register_myHome = findViewById(R.id.register_my_home);
-        register_myHome.setOnClickListener(v -> {
-
-            home_latitude = findViewById(R.id.home_latitude);
-            write_latitude = findViewById(R.id.now_latitude);
-            String text1 = write_latitude.getText().toString();
-            home_latitude.setText(text1);
-
-            home_longitude = findViewById(R.id.home_longitude);
-            write_longitude = findViewById(R.id.now_longitude);
-            String text2 = write_longitude.getText().toString();
-            home_longitude.setText(text2);
-        });
+        RegisterMyHome listener1 = new RegisterMyHome();
+        register_myHome.setOnClickListener(listener1);
         home_latitude = findViewById(R.id.home_latitude);
         home_longitude = findViewById(R.id.home_longitude);
-
 
         //ボタンを押すと、距離を算出してくれる仕組み
         //distance[0]は2地点間の距離
@@ -92,51 +109,35 @@ public class DistanceActivity extends AppCompatActivity {
         });
         num_distance_to_home = findViewById(R.id.num_distance_to_home);
 
-
+        //プッシュ通知するかどうかを決める基準の距離を登録するボタン（ボタン３）
         Button register_distance = findViewById(R.id.distance_to_home);
-        register_distance.setOnClickListener(v -> {
-            set_distance = findViewById(R.id.set_distance);
-            assumed_distance = findViewById(R.id.assumed_distance);
-            String text3 = assumed_distance.getText().toString();
-            set_distance.setText(text3);
-        });
+        RegisterDistance listener3 = new RegisterDistance();
+        register_distance.setOnClickListener(listener3);
         set_distance = findViewById(R.id.set_distance);
-
-        //compare_distance();
-
-        /*
-        Button practice_btn = findViewById(R.id.practice_btn);
-        practice_btn.setOnClickListener(v -> {
-            num_distance_to_home2 = num_distance_to_home.getText().toString();
-            num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
-            String set_distance2 = set_distance.getText().toString();
-            double set_distance3 = Double.parseDouble(set_distance2);
-
-            if (num_distance_to_home3 >= set_distance3) {
-                TextView distance_practice = findViewById(R.id.distance_practice);
-                distance_practice.setText("できました！");
-            }
-        });
-        */
 
         Button d_btn_return = findViewById(R.id.d_btn_return);
         d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
 
     }
 
-    /*
-    private void compare_distance() {
-        String num_distance_to_home2 = num_distance_to_home.getText().toString();
-        double num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
-        String set_distance2 = set_distance.getText().toString();
-        double set_distance3 = Double.parseDouble(set_distance2);
+    //自宅の緯度経度を取得するボタン(ボタン１)
+    private class RegisterMyHome implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            //自宅の緯度を取得して、表示
+            home_latitude = findViewById(R.id.home_latitude);
+            write_latitude = findViewById(R.id.now_latitude);
+            String text1 = write_latitude.getText().toString();
+            home_latitude.setText(text1);
 
-        if (num_distance_to_home3 >= set_distance3) {
-            TextView distance_practice = findViewById(R.id.distance_practice);
-            distance_practice.setText("できました！");
+            //自宅の経度を取得して、表示
+            home_longitude = findViewById(R.id.home_longitude);
+            write_longitude = findViewById(R.id.now_longitude);
+            String text2 = write_longitude.getText().toString();
+            home_longitude.setText(text2);
         }
     }
-    */
+
 
     /*
      * 2点間の距離（メートル）、方位角（始点、終点）を取得
@@ -152,6 +153,18 @@ public class DistanceActivity extends AppCompatActivity {
 
         return results;
     }
+
+    //「 プッシュ通知するかどうかを決める基準の距離 」を登録するボタン（ボタン３）
+    private class RegisterDistance implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            set_distance = findViewById(R.id.set_distance);
+            assumed_distance = findViewById(R.id.assumed_distance);
+            String text3 = assumed_distance.getText().toString();
+            set_distance.setText(text3);
+        }
+    }
+
 
 
     @Override
@@ -223,34 +236,5 @@ public class DistanceActivity extends AppCompatActivity {
             // 位置情報取得開始
             startUpdateLocation();
         }
-    }
-
-
-    /**
-     * 位置情報受取コールバッククラス
-     */
-    public class MyLocationCallback extends LocationCallback {
-
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            if (locationResult == null) {
-                return;
-            }
-            // 現在値を取得
-            Location location = locationResult.getLastLocation();
-
-            // 画面に表示
-            now_latitude = findViewById(R.id.now_latitude);
-            now_longitude = findViewById(R.id.now_longitude);
-            String str_now_latitude = String.valueOf(location.getLatitude());
-            String str_now_longitude = String.valueOf(location.getLongitude());
-
-            now_latitude.setText(str_now_latitude);
-            now_longitude.setText(str_now_longitude);
-
-            //String str_now_latitude = now_latitude.setText().toString;
-            //Double num_now_latitude = Double.parseDouble(str_now_latitude);
-        }
-
     }
 }

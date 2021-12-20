@@ -14,11 +14,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //「 チェックリスト 」に画面遷移するボタン
         Button m_btn_check = findViewById(R.id.m_btn_check);
         m_btn_check.setOnClickListener((View v) -> {
             startActivity(new Intent(this, ChecklistActivity.class));
         });
 
+        //「 設定 」に画面遷移するボタン
         Button m_btn_config = findViewById(R.id.m_btn_config);
         m_btn_config.setOnClickListener((View v) -> {
             startActivity(new Intent(this, ConfigActivity.class));
