@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+
+import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class DistanceActivity extends AppCompatActivity {
@@ -85,28 +91,47 @@ public class DistanceActivity extends AppCompatActivity {
         home_latitude = findViewById(R.id.home_latitude);
         home_longitude = findViewById(R.id.home_longitude);
 
-        //ボタンを押すと、距離を算出してくれる仕組み
-        //distance[0]は2地点間の距離
-        Button btn_distance_to_home = findViewById(R.id.btn_distance_to_home);
-        btn_distance_to_home.setOnClickListener(v -> {
+        //テキストビューを取得
+        num_distance_to_home = findViewById(R.id.num_distance_to_home);
+        //タイマーを新規生成
+        Timer timer1 = new Timer();
+        //ハンドラーを新規生成
+        Handler handler1 = new Handler();
+        //フォーマットを新規生成
+        DecimalFormat decimalFormat1 = new DecimalFormat("0.000");
 
-            String now_latitude2 = now_latitude.getText().toString();
-            String now_longitude2 = now_longitude.getText().toString();
-            double now_latitude3 = Double.parseDouble(now_latitude2);
-            double now_longitude3 = Double.parseDouble(now_longitude2);
+        //タイマーに直接スケジュール(1秒後に1秒間隔の処理を開始)を追加して実行
+        timer1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //システム時間を取得
+                double systemTime1 = System.currentTimeMillis();
+                //"0.000秒"形式に成型してログに出力
+                Log.d("SytemTime = ", decimalFormat1.format(systemTime1 / 1000) + "秒");
+                //直接だとエラーになるのでハンドラーを経由して画面表示を変更する
+                handler1.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        String now_latitude2 = now_latitude.getText().toString();
+                        String now_longitude2 = now_longitude.getText().toString();
+                        double now_latitude3 = Double.parseDouble(now_latitude2);
+                        double now_longitude3 = Double.parseDouble(now_longitude2);
 
-            String home_latitude2 = home_latitude.getText().toString();
-            String home_longitude2 = home_longitude.getText().toString();
-            double home_latitude3 = Double.parseDouble(home_latitude2);
-            double home_longitude3 = Double.parseDouble(home_longitude2);
+                        String home_latitude2 = home_latitude.getText().toString();
+                        String home_longitude2 = home_longitude.getText().toString();
+                        double home_latitude3 = Double.parseDouble(home_latitude2);
+                        double home_longitude3 = Double.parseDouble(home_longitude2);
 
-            float[] distance =
-                    getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
+                        float[] distance =
+                                getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
 
-            String dis = String.valueOf(distance[0]);
-            num_distance_to_home = findViewById(R.id.num_distance_to_home);
-            num_distance_to_home.setText(dis);
-        });
+                        String dis = String.valueOf(distance[0]);
+                        num_distance_to_home = findViewById(R.id.num_distance_to_home);
+                        num_distance_to_home.setText(dis);
+                    }
+                });
+            }
+        }, 1000, 1000);
         num_distance_to_home = findViewById(R.id.num_distance_to_home);
 
         //プッシュ通知するかどうかを決める基準の距離を登録するボタン（ボタン３）

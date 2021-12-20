@@ -108,17 +108,6 @@
             android:layout_height="wrap_content"
             android:text="@string/dis_my_home_long_num" />
 
-        <TextView
-            android:id="@+id/distance_practice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/practice_btn"/>
-
 
     </LinearLayout>
 
@@ -142,13 +131,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="m"/>
-
-        <Button
-            android:id="@+id/btn_distance_to_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="測定" />
 
     </LinearLayout>
 
