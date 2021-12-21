@@ -114,6 +114,19 @@ public class ConfigActivity extends AppCompatActivity {
             double set_distance4 = Double.parseDouble(set_distance3);
             */
 
+
+            //タイマーのセット
+            //他クラスからの情報の受け渡し
+
+            //if(num_distance_to_home4 >= set_distance4) {
+            if(7 >= 5) {
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+                notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
+              //  }
+            }
+
+
+
             //if(num_distance_to_home4 >= set_distance4) {
             if(7 >= 5) {
                 NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);

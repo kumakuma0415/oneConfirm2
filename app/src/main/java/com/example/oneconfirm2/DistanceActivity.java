@@ -69,8 +69,9 @@ public class DistanceActivity extends AppCompatActivity {
             //String str_now_latitude = now_latitude.setText().toString;
             //Double num_now_latitude = Double.parseDouble(str_now_latitude);
         }
-
     }
+
+    Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,13 @@ public class DistanceActivity extends AppCompatActivity {
                         String dis = String.valueOf(distance[0]);
                         num_distance_to_home = findViewById(R.id.num_distance_to_home);
                         num_distance_to_home.setText(dis);
+
+                        //新しく足したところ
+                        /*
+                        intent.putExtra("DISTANCE", num_distance_to_home.getText().toString());
+                        setResult(RESULT_OK, intent);
+                        finish();
+                         */
                     }
                 });
             }
