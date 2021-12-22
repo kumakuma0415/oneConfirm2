@@ -14,6 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button m_btn_check0 = findViewById(R.id.m_btn_check0);
+        m_btn_check0.setOnClickListener((View v) -> {
+            Intent intent = new Intent(this, PushNotificationService.class);
+            startActivity(intent);
+        });
+
         //「 チェックリスト 」に画面遷移するボタン
         Button m_btn_check = findViewById(R.id.m_btn_check);
         m_btn_check.setOnClickListener((View v) -> {

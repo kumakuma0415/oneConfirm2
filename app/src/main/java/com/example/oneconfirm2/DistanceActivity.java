@@ -66,12 +66,9 @@ public class DistanceActivity extends AppCompatActivity {
             now_latitude.setText(str_now_latitude);
             now_longitude.setText(str_now_longitude);
 
-            //String str_now_latitude = now_latitude.setText().toString;
-            //Double num_now_latitude = Double.parseDouble(str_now_latitude);
         }
     }
 
-    Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,17 +127,25 @@ public class DistanceActivity extends AppCompatActivity {
                         num_distance_to_home = findViewById(R.id.num_distance_to_home);
                         num_distance_to_home.setText(dis);
 
-                        //新しく足したところ
-                        /*
-                        intent.putExtra("DISTANCE", num_distance_to_home.getText().toString());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                         */
+                        SharedPreferences pref = getSharedPreferences("text_status", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        if(num_distance_to_home != null) {
+                            editor.putString("num_distance_to_home", num_distance_to_home.getText().toString());
+                        }
+                        editor.commit();
+
                     }
                 });
             }
         }, 1000, 1000);
         num_distance_to_home = findViewById(R.id.num_distance_to_home);
+
+        //新しく足したところ
+        //ボタンにするとできる？？
+        //ボタン４ 後に消す
+        Button btn_pra = findViewById(R.id.btn_pra);
+        BtnPra listener4 = new BtnPra();
+        btn_pra.setOnClickListener(listener4);
 
         //プッシュ通知するかどうかを決める基準の距離を登録するボタン（ボタン３）
         Button register_distance = findViewById(R.id.distance_to_home);
@@ -151,6 +156,17 @@ public class DistanceActivity extends AppCompatActivity {
         Button d_btn_return = findViewById(R.id.d_btn_return);
         d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
 
+    }
+
+    //ボタン４
+    private class BtnPra implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(DistanceActivity.this, ConfigActivity.class);
+            intent.putExtra("REAL_DISTANCE", num_distance_to_home.getText().toString());
+            intent.putExtra("SET_DISTANCE", set_distance.getText().toString());
+            startActivity(intent);
+        }
     }
 
     //自宅の緯度経度を取得するボタン(ボタン１)
@@ -210,9 +226,11 @@ public class DistanceActivity extends AppCompatActivity {
         if(home_longitude != null) {
             editor.putString("home_longitude", home_longitude.getText().toString());
         }
+        /*
         if(num_distance_to_home != null) {
             editor.putString("num_distance_to_home", num_distance_to_home.getText().toString());
         }
+         */
         if(set_distance != null) {
             editor.putString("set_distance", set_distance.getText().toString());
         }

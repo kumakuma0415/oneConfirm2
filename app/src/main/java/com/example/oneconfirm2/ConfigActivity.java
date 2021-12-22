@@ -11,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -73,81 +74,50 @@ public class ConfigActivity extends AppCompatActivity {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
+
         /**
          * Create a channel for the notification and set importance for it.
          * User can configure whether the notification turns on or off by channels.
          */
+        /*
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                 "ListView notification", NotificationManager.IMPORTANCE_HIGH);
         channel.setDescription("This channel is for ListView notification.");
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
+         */
 
         int NOTIFICATION_ID = 0;
 
+
+        //タイマーのセット
+        //他クラスからの情報の受け渡し
+        //新しく足したところ
+        //*
+
+        SharedPreferences pref = getSharedPreferences("text_status",Context.MODE_PRIVATE);
+
+        TextView set_distance = findViewById(R.id.textView6);
+        TextView num_distance_to_home = findViewById(R.id.textView7);
+
+        set_distance.setText(pref.getString("set_distance","未設定"));
+        num_distance_to_home.setText(pref.getString("num_distance_to_home","未設定"));
+
+        //Double x2 = Double.parseDouble(num_distance_to_home);
+        //Double y2 = Double.parseDouble(set_distance);
+
+
+        //Double c = CompareDistance(num_distance_to_home, set_distance);
+        //*
+        //if(x2 >= y2) {
+            //if(num) {
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+            notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
+            //  }
+        //}
+         //*/
+
         c_switch = findViewById(R.id.c_switch);
-
-        /*
-        c_switch.setOnClickListener((View v) -> {
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-            notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
-        });
-         */
-
-        //DistanceActivity distanceActivity = new DistanceActivity();
-
-        Button btn_pra_alert = findViewById(R.id.btn_pra_alert);
-        btn_pra_alert.setOnClickListener((View v) -> {
-
-            //DistanceActivity distanceActivity = new DistanceActivity();
-
-            /*
-            //TextView num_distance_to_home2 = distanceActivity.num_distance_to_home;
-            TextView num_distance_to_home2 = findViewById(R.id.num_distance_to_home);
-            String num_distance_to_home3 = num_distance_to_home2.getText().toString();
-            //Log.v("distanceActivity", String.valueOf(distanceActivity.num_distance_to_home));
-            double num_distance_to_home4 = Double.parseDouble(num_distance_to_home3);
-
-            //TextView set_distance2 = distanceActivity.set_distance;
-            TextView set_distance2 = findViewById(R.id.set_distance);
-            String set_distance3 = set_distance2.getText().toString();
-            double set_distance4 = Double.parseDouble(set_distance3);
-            */
-
-
-            //タイマーのセット
-            //他クラスからの情報の受け渡し
-
-            //if(num_distance_to_home4 >= set_distance4) {
-            if(7 >= 5) {
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-                notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
-              //  }
-            }
-
-
-
-            //if(num_distance_to_home4 >= set_distance4) {
-            if(7 >= 5) {
-                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-                notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
-              //  }
-            }
-        });
-
-        /*
-        DistanceActivity distanceActivity = new DistanceActivity();
-        String num_distance_to_home2 = distanceActivity.num_distance_to_home.getText().toString();
-        double num_distance_to_home3 = Double.parseDouble(num_distance_to_home2);
-        String set_distance2 = distanceActivity.set_distance.getText().toString();
-        double set_distance3 = Double.parseDouble(set_distance2);
-
-        if(num_distance_to_home3 >= set_distance3) {
-            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-            notificationManagerCompat.notify(NOTIFICATION_ID, nfBuilder.build());
-        }
-        */
-
         c_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -164,6 +134,13 @@ public class ConfigActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public Double CompareDistance(String x, String y) {
+
+        Double x2 = Double.parseDouble(x);
+        Double y2 = Double.parseDouble(y);
+        return x2-y2;
     }
 
     @Override
