@@ -29,8 +29,8 @@
     <string name="dis_direction_long_num">経度不明</string>
     <string name="dis_my_home">自宅の位置</string>
     <string name="dis_my_home_latitude">緯度</string>
-    <string name="dis_my_home_lat_num">未設定</string>
+    <string name="dis_my_home_lat_num">0</string>
     <string name="dis_my_home_longitude">経度</string>
-    <string name="dis_my_home_long_num">未設定</string>
+    <string name="dis_my_home_long_num">0</string>
 
 </resources>

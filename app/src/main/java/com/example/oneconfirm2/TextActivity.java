@@ -72,7 +72,6 @@ public class TextActivity extends AppCompatActivity {
 
     // 「キャンセル」ボタン　タップ時に呼び出されるメソッド
     public void btnCancel_onClick(View view) {
-
         // TextActivityを終了
         finish();
     }

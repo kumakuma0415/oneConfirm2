@@ -54,10 +54,11 @@ public class DistanceActivity extends AppCompatActivity {
             if (locationResult == null) {
                 return;
             }
+
             // 現在値を取得
             Location location = locationResult.getLastLocation();
 
-            // 画面に表示
+            // 画面に現在地の緯度経度を表示
             now_latitude = findViewById(R.id.now_latitude);
             now_longitude = findViewById(R.id.now_longitude);
             String str_now_latitude = String.valueOf(location.getLatitude());
@@ -91,6 +92,7 @@ public class DistanceActivity extends AppCompatActivity {
 
         //テキストビューを取得
         num_distance_to_home = findViewById(R.id.num_distance_to_home);
+
         //タイマーを新規生成
         Timer timer1 = new Timer();
         //ハンドラーを新規生成
@@ -98,6 +100,7 @@ public class DistanceActivity extends AppCompatActivity {
         //フォーマットを新規生成
         DecimalFormat decimalFormat1 = new DecimalFormat("0.000");
 
+        //*
         //タイマーに直接スケジュール(1秒後に1秒間隔の処理を開始)を追加して実行
         timer1.schedule(new TimerTask() {
             @Override
@@ -120,32 +123,30 @@ public class DistanceActivity extends AppCompatActivity {
                         double home_latitude3 = Double.parseDouble(home_latitude2);
                         double home_longitude3 = Double.parseDouble(home_longitude2);
 
+                        //距離算出をして、変数に代入
                         float[] distance =
                                 getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
 
+                        //距離をUIに表示
                         String dis = String.valueOf(distance[0]);
                         num_distance_to_home = findViewById(R.id.num_distance_to_home);
                         num_distance_to_home.setText(dis);
 
+                        Log.d("distance", ":" + distance[0]);
+
+                        //距離を保存する
                         SharedPreferences pref = getSharedPreferences("text_status", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
-                        if(num_distance_to_home != null) {
-                            editor.putString("num_distance_to_home", num_distance_to_home.getText().toString());
-                        }
+                        editor.putString("REAL_DISTANCE", num_distance_to_home.getText().toString());
+                        editor.putString("SET_DISTANCE", set_distance.getText().toString());
                         editor.commit();
-
                     }
                 });
             }
-        }, 1000, 1000);
+        }, 10000, 10000);
         num_distance_to_home = findViewById(R.id.num_distance_to_home);
+        //*/
 
-        //新しく足したところ
-        //ボタンにするとできる？？
-        //ボタン４ 後に消す
-        Button btn_pra = findViewById(R.id.btn_pra);
-        BtnPra listener4 = new BtnPra();
-        btn_pra.setOnClickListener(listener4);
 
         //プッシュ通知するかどうかを決める基準の距離を登録するボタン（ボタン３）
         Button register_distance = findViewById(R.id.distance_to_home);
@@ -153,22 +154,15 @@ public class DistanceActivity extends AppCompatActivity {
         register_distance.setOnClickListener(listener3);
         set_distance = findViewById(R.id.set_distance);
 
+        //戻るボタン　ConfigActivityに画面遷移
         Button d_btn_return = findViewById(R.id.d_btn_return);
-        d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, ConfigActivity.class)));
+        d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, MainActivity.class)));
 
     }
+    //onCreate終了
 
-    //ボタン４
-    private class BtnPra implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(DistanceActivity.this, ConfigActivity.class);
-            intent.putExtra("REAL_DISTANCE", num_distance_to_home.getText().toString());
-            intent.putExtra("SET_DISTANCE", set_distance.getText().toString());
-            startActivity(intent);
-        }
-    }
 
+    //以下はボタンの関数の詳細
     //自宅の緯度経度を取得するボタン(ボタン１)
     private class RegisterMyHome implements View.OnClickListener {
         @Override
@@ -192,11 +186,9 @@ public class DistanceActivity extends AppCompatActivity {
      * 2点間の距離（メートル）、方位角（始点、終点）を取得
      * ※配列で返す[距離、始点から見た方位角、終点から見た方位角]
      */
-
     public float[] getDistance(double x, double y, double x2, double y2) {
         // 結果を格納するための配列を生成
         float[] results = new float[3];
-
         // 距離計算
         Location.distanceBetween(x, y, x2, y2, results);
 
@@ -214,8 +206,7 @@ public class DistanceActivity extends AppCompatActivity {
         }
     }
 
-
-
+    //緯度経度、距離を数値として保存する
     @Override
     protected void onPause(){
         SharedPreferences pref = getSharedPreferences("text_status", Context.MODE_PRIVATE);
@@ -226,11 +217,9 @@ public class DistanceActivity extends AppCompatActivity {
         if(home_longitude != null) {
             editor.putString("home_longitude", home_longitude.getText().toString());
         }
-        /*
         if(num_distance_to_home != null) {
             editor.putString("num_distance_to_home", num_distance_to_home.getText().toString());
         }
-         */
         if(set_distance != null) {
             editor.putString("set_distance", set_distance.getText().toString());
         }
@@ -238,23 +227,23 @@ public class DistanceActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    //保存した数値をUIに表示
     @Override
     protected void onResume() {
         super.onResume();
 
         SharedPreferences pref = getSharedPreferences("text_status",Context.MODE_PRIVATE);
-
-        home_latitude.setText(pref.getString("home_latitude","未設定"));
-        home_longitude.setText(pref.getString("home_longitude","未設定"));
-        set_distance.setText(pref.getString("set_distance","未設定"));
-        num_distance_to_home.setText(pref.getString("num_distance_to_home","未設定"));
+        home_latitude.setText(pref.getString("home_latitude","0"));
+        home_longitude.setText(pref.getString("home_longitude","0"));
+        set_distance.setText(pref.getString("set_distance","0"));
+        num_distance_to_home.setText(pref.getString("num_distance_to_home","0"));
     }
 
 
+    //以下は緯度経度を取得する下ごしらえ
     /**
      * 位置情報取得開始メソッド
      */
-
     private void startUpdateLocation() {
         // 位置情報取得権限の確認
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -272,7 +261,6 @@ public class DistanceActivity extends AppCompatActivity {
 
         fusedLocationClient.requestLocationUpdates(locationRequest, new MyLocationCallback(), null);
     }
-
 
     /**
      * 許可ダイアログの結果受取

@@ -1,11 +1,17 @@
 package com.example.oneconfirm2;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,11 +20,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button m_btn_check0 = findViewById(R.id.m_btn_check0);
-        m_btn_check0.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, PushNotificationService.class);
-            startActivity(intent);
+        //サービス開始ボタン
+        CompoundButton m_btn_service = findViewById(R.id.m_btn_service);
+        Intent intent = new Intent(MainActivity.this, PushNotificationService.class);
+        m_btn_service.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //サービスを開始
+                    startService(intent);
+                } else {
+                    //サービスの開始をトーストで表示できるように書き直す
+                    //Toast toast = makeText(this, "自宅までの距離を観測します", LENGTH_LONG);
+                    //toast.show();
+
+                    //サービスを止める処理を書き直す
+                    stopService(intent);
+                }
+            }
         });
+
 
         //「 チェックリスト 」に画面遷移するボタン
         Button m_btn_check = findViewById(R.id.m_btn_check);
@@ -29,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //「 設定 」に画面遷移するボタン
         Button m_btn_config = findViewById(R.id.m_btn_config);
         m_btn_config.setOnClickListener((View v) -> {
-            startActivity(new Intent(this, ConfigActivity.class));
+            startActivity(new Intent(this, DistanceActivity.class));
         });
     }
 }
