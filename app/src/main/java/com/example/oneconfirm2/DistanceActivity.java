@@ -149,7 +149,7 @@ public class DistanceActivity extends AppCompatActivity {
         set_distance = findViewById(R.id.set_distance);
 
         //戻るボタン　ConfigActivityに画面遷移
-        Button d_btn_return = findViewById(R.id.d_btn_return);
+        Button d_btn_return = findViewById(R.id.distance_btn_return);
         d_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, MainActivity.class)));
 
     }
