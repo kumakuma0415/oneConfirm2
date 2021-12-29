@@ -7,39 +7,39 @@
     tools:context=".ChecklistActivity">
 
     <ToggleButton
-        android:id="@+id/m_btn_service"
-        android:layout_width="326dp"
+        android:id="@+id/main_btn_service"
+        android:layout_width="350dp"
         android:layout_height="75dp"
         android:checked="false"
-        android:textOff="サービスを開始する"
-        android:textOn="サービスを中断する"
-        app:layout_constraintBottom_toTopOf="@+id/m_btn_check"
+        android:textOff="@string/main_btn_start"
+        android:textOn="@string/main_btn_stop"
+        app:layout_constraintBottom_toTopOf="@+id/main_btn_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/m_btn_check"
+        android:id="@+id/main_btn_check"
         android:layout_width="350dp"
         android:layout_height="75dp"
-        android:text="@string/m_btn_check"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/m_btn_config"
+        android:text="@string/main_btn_check"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_btn_config"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/m_btn_service" />
+        app:layout_constraintTop_toBottomOf="@+id/main_btn_service" />
 
     <Button
-        android:id="@+id/m_btn_config"
+        android:id="@+id/main_btn_config"
         android:layout_width="350dp"
         android:layout_height="75dp"
-        android:text="@string/m_btn_config"
-        android:textSize="40dp"
+        android:text="@string/main_btn_config"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/m_btn_check" />
+        app:layout_constraintTop_toBottomOf="@+id/main_btn_check" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

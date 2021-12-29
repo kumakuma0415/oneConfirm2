@@ -21,7 +21,7 @@ public class MainListAdapter extends SimpleCursorAdapter {
         View view = super.getView(position, convertView, parent);
 
         // 削除ボタン オブジェクトを取得
-        ImageButton btnDel = (ImageButton) view.findViewById(R.id.button_delete);
+        ImageButton btnDel = view.findViewById(R.id.button_delete);
 
         // ボタンにリスト内の位置を設定
         btnDel.setTag(position);

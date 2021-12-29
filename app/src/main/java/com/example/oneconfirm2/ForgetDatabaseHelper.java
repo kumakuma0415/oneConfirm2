@@ -38,12 +38,12 @@ public class ForgetDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_NAME_CONTENTS + " TEXT); "
         );
 
+        //テーブルに初期値を挿入
         db.execSQL(
                 "INSERT INTO "+ DBEntry.TABLE_NAME + " (" +
                         COLUMN_NAME_TITLE + "," + COLUMN_NAME_CONTENTS
                 + ")" + " VALUES" + "(" +"'鍵を締めましたか？', '一昨日も忘れていた。');"
         );
-
         db.execSQL(
                 "INSERT INTO "+ DBEntry.TABLE_NAME + " (" +
                         COLUMN_NAME_TITLE + "," + COLUMN_NAME_CONTENTS

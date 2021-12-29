@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:text="@string/dis_direction"/>
+        android:text="@string/distance_direction_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,10 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/dis_direction_latitude" />
+            android:text="@string/distance_direction_latitude" />
 
         <TextView
             android:id="@+id/now_latitude"
@@ -33,7 +33,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/dis_direction_lat_num" />
+            android:text="@string/distance_direction_lat_number" />
 
         <TextView
             android:id="@+id/textView2"
@@ -41,10 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/dis_direction_longitude" />
+            android:text="@string/distance_direction_longitude" />
 
         <TextView
             android:id="@+id/now_longitude"
@@ -52,14 +52,14 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/dis_direction_long_num" />
+            android:text="@string/distance_direction_long_number" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dis_my_home"/>
+        android:text="@string/distance_my_home_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,22 +70,22 @@
             android:id="@+id/textView3"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/dis_my_home_latitude" />
+            android:text="@string/distance_my_home_latitude" />
 
         <TextView
             android:id="@+id/home_latitude"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/dis_my_home_long_num" />
+            android:text="@string/distance_my_home_long_number" />
 
         <Button
             android:id="@+id/register_my_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="登録" />
+            android:layout_marginStart="5dp"
+            android:text="@string/distance_register_my_home" />
 
     </LinearLayout>
 
@@ -98,15 +98,15 @@
             android:id="@+id/textView4"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="60dp"
-            android:text="@string/dis_my_home_longitude" />
+            android:text="@string/distance_my_home_longitude" />
 
         <TextView
             android:id="@+id/home_longitude"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/dis_my_home_long_num" />
+            android:text="@string/distance_my_home_long_number" />
 
 
     </LinearLayout>
@@ -119,18 +119,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自宅までの距離"/>
+            android:text="@string/distance_to_my_home_title"/>
 
         <TextView
             android:id="@+id/num_distance_to_home"
             android:layout_width="107dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginStart="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="m"/>
+            android:text="@string/distance_m"/>
 
     </LinearLayout>
 
@@ -140,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="自宅から何メートル離れたら、通知しますか？" />
+        android:text="@string/distance_conditions_title" />
 
 
     <LinearLayout
@@ -153,37 +153,38 @@
             android:id="@+id/set_distance"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:minHeight="48dp"
-            android:text="未設定" />
+            android:text="@string/distance_conditions_number" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="m" />
+            android:layout_marginStart="5dp"
+            android:text="@string/distance_m" />
 
         <EditText
             android:id="@+id/assumed_distance"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:hint="例）3"
+            android:layout_marginStart="60dp"
+            android:hint="@string/distance_conditions_number2"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:autofillHints="" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="m" />
+            android:layout_marginStart="5dp"
+            android:text="@string/distance_m" />
 
         <Button
             android:id="@+id/distance_to_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="登録" />
+            android:layout_marginStart="5dp"
+            android:text="@string/distance_btn_register" />
 
     </LinearLayout>
 
@@ -196,6 +197,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="100dp"
-        android:text="戻る" />
+        android:text="@string/distance_btn_return" />
 
 </LinearLayout>

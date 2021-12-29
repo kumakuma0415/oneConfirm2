@@ -26,10 +26,12 @@ public class ChecklistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
 
-        Button m_btn_return = findViewById(R.id.m_btn_return);
+        //ホーム画面に戻るボタン
+        Button m_btn_return = findViewById(R.id.checklist_btn_return);
         m_btn_return.setOnClickListener((View v) -> startActivity(new Intent(this, MainActivity.class)));
 
-        Button m_btn_new = findViewById(R.id.m_btn_new);
+        //TextActivityに画面遷移するボタン
+        Button m_btn_new = findViewById(R.id.checklist_btn_new);
         m_btn_new.setOnClickListener((View v) -> startActivity(new Intent(this, TextActivity.class)));
 
 
@@ -70,7 +72,7 @@ public class ChecklistActivity extends AppCompatActivity {
                 this, R.layout.row_checklist, cursor, from, to,0);
 
         // activity_main.xmlに定義したListViewオブジェクトを取得
-        ListView list = findViewById(R.id.c_listview);
+        ListView list = findViewById(R.id.checklist_listview);
 
         // ListViewにアダプターを設定
         list.setAdapter(sc_adapter);
@@ -130,7 +132,7 @@ public class ChecklistActivity extends AppCompatActivity {
                 this, R.layout.row_checklist, cursor, from, to,0);
 
         // activity_main.xmlに定義したListViewオブジェクトを取得
-        ListView list = findViewById(R.id.c_listview);
+        ListView list = findViewById(R.id.checklist_listview);
 
         // ListViewにアダプターを設定
         list.setAdapter(sc_adapter);

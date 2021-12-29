@@ -1,36 +1,47 @@
 <resources>
+    //アプリ名
     <string name="app_name">家を出る前に、ひと確認</string>
-    <string name="m_btn_check">チェックリスト</string>
-    <string name="m_btn_config">設定</string>
 
-    <string name="m_btn_return">戻る</string>
-    <string name="m_btn_new">新しいリストの作成</string>
+    //MainActivity
+    <string name="main_btn_start">サービスを開始する</string>
+    <string name="main_btn_stop">サービスを中断する</string>
+    <string name="main_btn_check">チェックリスト</string>
+    <string name="main_btn_config">設定</string>
 
-    <string-array name="c_listview">
-        <item>鍵を締めましたか？</item>
-        <item>電気を消しましたか？</item>
-    </string-array>
+    //ChecklistActivity
+    <string name="checklist_btn_return">戻る</string>
+    <string name="checklist_btn_new">新しいリストの作成</string>
+    <string-array name="checklist_listview" />
+        //listviewの中身
+        <string name="row_delete">消す</string>
 
-    <string name="r_del">消す</string>
+    //TextActivity
+    <string name="text_title">確認すること</string>
+    <string name="text_contents">確認の詳細</string>
+    <string name="text_register">登録</string>
+    <string name="text_cancel">戻る</string>
+    <string name="text_example1">例 鍵を締めましたか？</string>
+    <string name="text_example2">昨日も忘れていた。</string>
 
-    <string name="t_title">確認すること</string>
-    <string name="t_contents">確認の詳細</string>
-    <string name="t_reg">登録</string>
-    <string name="t_cancel">戻る</string>
+    //DistanceActivity
+    <string name="distance_direction_title">今の現在地</string>
+    <string name="distance_direction_latitude">緯度</string>
+    <string name="distance_direction_lat_number">緯度不明</string>
+    <string name="distance_direction_longitude">経度</string>
+    <string name="distance_direction_long_number">経度不明</string>
+    <string name="distance_register_my_home">登録</string>
+    <string name="distance_my_home_title">自宅の位置</string>
+    <string name="distance_my_home_latitude">緯度</string>
+    <string name="distance_my_home_lat_number">0</string>
+    <string name="distance_my_home_longitude">経度</string>
+    <string name="distance_my_home_long_number">0</string>
+    <string name="distance_to_my_home_title">自宅までの距離</string>
+    <string name="distance_m">m</string>
+    <string name="distance_conditions_title">自宅から何メートル離れたら、通知しますか？</string>
+    <string name="distance_conditions_number">未設定</string>
+    <string name="distance_conditions_number2">例）3</string>
+    <string name="distance_btn_register">登録</string>
 
-    <string name="co_dis">距離の変更</string>
-    <string name="co_return">戻る</string>
-
-    //activity_distance
-    <string name="dis_direction">今の現在地</string>
-    <string name="dis_direction_latitude">緯度</string>
-    <string name="dis_direction_lat_num">緯度不明</string>
-    <string name="dis_direction_longitude">経度</string>
-    <string name="dis_direction_long_num">経度不明</string>
-    <string name="dis_my_home">自宅の位置</string>
-    <string name="dis_my_home_latitude">緯度</string>
-    <string name="dis_my_home_lat_num">0</string>
-    <string name="dis_my_home_longitude">経度</string>
-    <string name="dis_my_home_long_num">0</string>
+    <string name="distance_btn_return">戻る</string>
 
 </resources>

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -44,16 +45,11 @@ public class DistanceActivity extends AppCompatActivity {
     TextView num_distance_to_home;
 
 
-    /**
-     * 位置情報受取コールバッククラス
-     */
+    //位置情報受取をするコールバッククラス
     public class MyLocationCallback extends LocationCallback {
 
         @Override
-        public void onLocationResult(LocationResult locationResult) {
-            if (locationResult == null) {
-                return;
-            }
+        public void onLocationResult(@NonNull LocationResult locationResult) {
 
             // 現在値を取得
             Location location = locationResult.getLastLocation();
@@ -100,7 +96,6 @@ public class DistanceActivity extends AppCompatActivity {
         //フォーマットを新規生成
         DecimalFormat decimalFormat1 = new DecimalFormat("0.000");
 
-        //*
         //タイマーに直接スケジュール(1秒後に1秒間隔の処理を開始)を追加して実行
         timer1.schedule(new TimerTask() {
             @Override
@@ -108,39 +103,38 @@ public class DistanceActivity extends AppCompatActivity {
                 //システム時間を取得
                 double systemTime1 = System.currentTimeMillis();
                 //"0.000秒"形式に成型してログに出力
-                Log.d("SytemTime = ", decimalFormat1.format(systemTime1 / 1000) + "秒");
+                Log.d("SystemTime = ", decimalFormat1.format(systemTime1 / 1000) + "秒");
                 //直接だとエラーになるのでハンドラーを経由して画面表示を変更する
-                handler1.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String now_latitude2 = now_latitude.getText().toString();
-                        String now_longitude2 = now_longitude.getText().toString();
-                        double now_latitude3 = Double.parseDouble(now_latitude2);
-                        double now_longitude3 = Double.parseDouble(now_longitude2);
+                handler1.post(() -> {
+                    //現在地の緯度経度を取得
+                    String now_latitude2 = now_latitude.getText().toString();
+                    String now_longitude2 = now_longitude.getText().toString();
+                    double now_latitude3 = Double.parseDouble(now_latitude2);
+                    double now_longitude3 = Double.parseDouble(now_longitude2);
 
-                        String home_latitude2 = home_latitude.getText().toString();
-                        String home_longitude2 = home_longitude.getText().toString();
-                        double home_latitude3 = Double.parseDouble(home_latitude2);
-                        double home_longitude3 = Double.parseDouble(home_longitude2);
+                    //画面から自宅の緯度経度を取得
+                    String home_latitude2 = home_latitude.getText().toString();
+                    String home_longitude2 = home_longitude.getText().toString();
+                    double home_latitude3 = Double.parseDouble(home_latitude2);
+                    double home_longitude3 = Double.parseDouble(home_longitude2);
 
-                        //距離算出をして、変数に代入
-                        float[] distance =
-                                getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
+                    //以上の数値を用いて。距離算出
+                    float[] distance =
+                            getDistance(now_latitude3, now_longitude3, home_latitude3, home_longitude3);
 
-                        //距離をUIに表示
-                        String dis = String.valueOf(distance[0]);
-                        num_distance_to_home = findViewById(R.id.num_distance_to_home);
-                        num_distance_to_home.setText(dis);
+                    //距離をUIに表示
+                    String dis = String.valueOf(distance[0]);
+                    num_distance_to_home = findViewById(R.id.num_distance_to_home);
+                    num_distance_to_home.setText(dis);
 
-                        Log.d("distance", ":" + distance[0]);
+                    Log.d("distance", ":" + distance[0]);
 
-                        //距離を保存する
-                        SharedPreferences pref = getSharedPreferences("text_status", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putString("REAL_DISTANCE", num_distance_to_home.getText().toString());
-                        editor.putString("SET_DISTANCE", set_distance.getText().toString());
-                        editor.commit();
-                    }
+                    //距離を保存する
+                    SharedPreferences pref = getSharedPreferences("text_status", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("REAL_DISTANCE", num_distance_to_home.getText().toString());
+                    editor.putString("SET_DISTANCE", set_distance.getText().toString());
+                    editor.apply();
                 });
             }
         }, 10000, 10000);
@@ -182,10 +176,9 @@ public class DistanceActivity extends AppCompatActivity {
     }
 
 
-    /*
-     * 2点間の距離（メートル）、方位角（始点、終点）を取得
-     * ※配列で返す[距離、始点から見た方位角、終点から見た方位角]
-     */
+
+    //2点間の距離（メートル）、方位角（始点、終点）を取得
+    //配列で返す[距離、始点から見た方位角、終点から見た方位角]
     public float[] getDistance(double x, double y, double x2, double y2) {
         // 結果を格納するための配列を生成
         float[] results = new float[3];
@@ -223,7 +216,7 @@ public class DistanceActivity extends AppCompatActivity {
         if(set_distance != null) {
             editor.putString("set_distance", set_distance.getText().toString());
         }
-        editor.commit();
+        editor.apply();
         super.onPause();
     }
 
@@ -241,9 +234,8 @@ public class DistanceActivity extends AppCompatActivity {
 
 
     //以下は緯度経度を取得する下ごしらえ
-    /**
-     * 位置情報取得開始メソッド
-     */
+
+    //位置情報取得開始メソッド
     private void startUpdateLocation() {
         // 位置情報取得権限の確認
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -269,7 +261,7 @@ public class DistanceActivity extends AppCompatActivity {
      * @param grantResults
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // 位置情報取得開始
