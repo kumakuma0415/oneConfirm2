@@ -4,14 +4,27 @@ import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //サービス開始ボタン
+        //*
         CompoundButton m_btn_service = findViewById(R.id.m_btn_service);
         Intent intent = new Intent(MainActivity.this, PushNotificationService.class);
         m_btn_service.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -39,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //*/
 
 
         //「 チェックリスト 」に画面遷移するボタン
@@ -53,4 +68,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, DistanceActivity.class));
         });
     }
+
+
+
 }
